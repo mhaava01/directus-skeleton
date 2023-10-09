@@ -4,8 +4,9 @@ USER root
 RUN corepack enable \
  && corepack prepare pnpm@8.7.6 --activate
 
+# Install additional extensions
 # USER node
-# RUN pnpm install directus-extension-flow-manager
+# RUN pnpm install directus-extension-example
 
 # Install Nodemon globally
 RUN npm install -g nodemon
@@ -14,4 +15,4 @@ RUN npm install -g nodemon
 USER node
 
 # CMD to start Directus with Nodemon
-CMD ["nodemon", "--watch", "extensions/", "--exec", "node /directus/cli.js start"]
+CMD ["/bin/sh", "-c", "node /directus/cli.js bootstrap && nodemon --watch extensions/ --exec node /directus/cli.js start"]
